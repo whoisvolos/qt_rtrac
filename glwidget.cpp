@@ -12,8 +12,8 @@ GLWidget::GLWidget(QWidget *parent)
       m_program(0),
       m_model(NULL)
 {
-//    setAttribute(Qt::WA_AlwaysStackOnTop);
-//    setAttribute(Qt::WA_TranslucentBackground);
+    setAttribute(Qt::WA_AlwaysStackOnTop);
+    setAttribute(Qt::WA_TranslucentBackground);
     setAutoFillBackground(false);
     connect(this, SIGNAL(modelLoading(const char*)), this, SLOT(loadModel(const char*)));
 }
@@ -115,20 +115,16 @@ void GLWidget::initializeProgram() {
     m_lightPosLoc = m_program->uniformLocation("lightPos");
 
     m_vao.create();
-    QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
-
-    //m_model = ObjLoader::loadModel("models/neptune.obj");
-    //if (m_model) {
-        m_vbo.create();
-        m_vbo.bind();
-        m_vbo.allocate(m_model->constData(), m_model->count() * sizeof(GLfloat));
-        setupVertexAttribs();
-    //}
+    m_vao.bind();
+    m_vbo.create();
+    m_vbo.bind();
+    m_vbo.allocate(m_model->constData(), m_model->count() * sizeof(GLfloat));
+    setupVertexAttribs();
 
     m_camera.setToIdentity();
     m_camera.translate(0, 0, -2);
 
-    m_program->setUniformValue(m_lightPosLoc, QVector3D(50, 50, 100));
+    m_program->setUniformValue(m_lightPosLoc, QVector3D(10, 0, 50));
 
     m_program->release();
 }
@@ -164,7 +160,7 @@ void GLWidget::paintGL() {
         m_world.rotate(m_zRot / 16.0f, 0, 0, 1);
         m_world.scale(m_scale);
 
-        QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
+        m_vao.bind();
         m_program->bind();
         m_program->setUniformValue(m_projMatrixLoc, m_proj);
         m_program->setUniformValue(m_mvMatrixLoc, m_camera * m_world);

@@ -18,7 +18,7 @@ ObjModel* ObjLoader::loadModel(const char *fileName) {
     QVector3D vertex;
     QVector<QVector3D> vertices;
     QVector<Face> faces;
-    string str, temp;
+    string str;
 
     while(getline(file, str)) {
         // Empty line
@@ -56,6 +56,7 @@ ObjModel* ObjLoader::loadModel(const char *fileName) {
         // Face
         if (str[0] == 'f') {
             QVector<int> objFace;
+            string temp;
             stringstream ss(str, ios_base::in);
             ss >> temp;
 
@@ -96,15 +97,13 @@ ObjModel* ObjLoader::loadModel(const char *fileName) {
                         break;
                     }
                 }
-
-                temp = "";
             }
 
             // Triangulating
             for (int i = 1; i < objFace.size() - 1; i++) {
                 faces.push_back(Face(objFace[0], objFace[i], objFace[i + 1], faces.size()));
 
-                // Shifting face's vIndices
+                // Shifting face's indices
                 faces[faces.size() - 1].vIndices[0] -= 1;
                 faces[faces.size() - 1].vIndices[1] -= 1;
                 faces[faces.size() - 1].vIndices[2] -= 1;
@@ -118,8 +117,9 @@ ObjModel* ObjLoader::loadModel(const char *fileName) {
 
     // Shifting and scaling to bounding box
     GLfloat cubeLen = max(max(maxBox[0] - minBox[0], maxBox[1] - minBox[1]), maxBox[2] - minBox[2]);
+    QVector3D transVec = QVector3D((maxBox[0] + minBox[0]) / 2, (maxBox[1] + minBox[1]) / 2, (maxBox[2] + minBox[2]) / 2);
     for (int i = 0, l = vertices.size(); i < l; ++i) {
-        vertices[i] -= QVector3D((maxBox[0] + minBox[0]) / 2, (maxBox[1] + minBox[1]) / 2, (maxBox[2] + minBox[2]) / 2);
+        vertices[i] -= transVec;
         vertices[i] /= cubeLen;
     }
 

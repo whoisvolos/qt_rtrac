@@ -1,2 +1,9 @@
 .DS_Store
 .idea/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+moc_*
+qt_rtrac
+qt_rtrac_automoc.cpp

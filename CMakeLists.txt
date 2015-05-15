@@ -28,6 +28,8 @@ set(SOURCE_FILES
     window.cpp
     glwidget.cpp
     main.cpp
+    scene_loader.h
+    scene_loader.cpp
     )
 
 add_executable(qt_rtrac ${SOURCE_FILES})
