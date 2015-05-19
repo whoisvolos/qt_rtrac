@@ -2,18 +2,15 @@
 #include <QMouseEvent>
 #include <QOpenGLShaderProgram>
 #include <qmessagebox.h>
+#include <QtCore/qcoreapplication.h>
 
 GLWidget::GLWidget(QWidget *parent)
-    : QOpenGLWidget(parent),
-      m_xRot(0),
-      m_yRot(0),
-      m_zRot(0),
-      m_scale(1.0f),
-      m_program(0),
-      m_model(NULL)
-{
+    : QOpenGLWidget(parent), m_xRot(0), m_yRot(0), m_zRot(0), m_scale(1.0f), m_program(0), m_model(NULL), m_core(false) {
     setAttribute(Qt::WA_AlwaysStackOnTop);
     setAttribute(Qt::WA_TranslucentBackground);
+
+    m_core = QCoreApplication::arguments().contains(QStringLiteral("--coreprofile"));
+
     setAutoFillBackground(false);
     connect(this, SIGNAL(modelLoading(const char*)), this, SLOT(loadModel(const char*)));
 }
@@ -102,8 +99,8 @@ void GLWidget::loadModel(const char *filePath) {
 
 void GLWidget::initializeProgram() {
     m_program = new QOpenGLShaderProgram;
-    m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "shaders/vertex.glsl");
-    m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, "shaders/fragment.glsl");
+    m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, m_core ? "shaders/vertex-core.glsl" : "shaders/vertex.glsl");
+    m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, m_core ? "shaders/fragment-core.glsl" : "shaders/fragment.glsl");
     m_program->bindAttributeLocation("vertex", 0);
     m_program->bindAttributeLocation("normal", 1);
     m_program->link();
