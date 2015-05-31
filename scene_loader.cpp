@@ -1,4 +1,5 @@
 #include "scene_loader.h"
+#include <algorithm>
 
 scene_t* load_scene(const char *filePath, int post_process) {
     using namespace std;
