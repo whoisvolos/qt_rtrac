@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(qt_rtrac)
+project(qt_shell)
 
 set(CMAKE_INCLUDE_PATH "")
 
@@ -9,6 +9,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 set(CMAKE_PREFIX_PATH /usr/local/opt/qt5)
+set(CMAKE_PREFIX_PATH E:/Qt/qt5.4.0/5.4/msvc2013_opengl)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 
 find_package(Qt5Widgets REQUIRED)
 find_package(Qt5OpenGL REQUIRED)
