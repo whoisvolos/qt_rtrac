@@ -33,9 +33,9 @@ set(SOURCE_FILES
     main.cpp
     )
 
-add_executable(qt_rtrac ${SOURCE_FILES})
+add_executable(qt_shell ${SOURCE_FILES})
 
-qt5_use_modules(qt_rtrac Core Gui Widgets OpenGL)
+qt5_use_modules(qt_shell Core Gui Widgets OpenGL)
 
-target_link_libraries(qt_rtrac Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})
+target_link_libraries(qt_shell Qt5::Widgets Qt5::OpenGL ${OPENGL_LIBRARIES})
 
