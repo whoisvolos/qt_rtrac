@@ -4,7 +4,6 @@
 #include <qopengl.h>
 
 #include "mainwindow.h"
-#include "scene_loader.h"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
