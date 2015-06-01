@@ -9,6 +9,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 set(CMAKE_PREFIX_PATH /usr/local/opt/qt5)
+set(CMAKE_PREFIX_PATH /opt/Qt/5.4/gcc_64/lib/cmake)
 set(CMAKE_PREFIX_PATH E:/Qt/qt5.4.0/5.4/msvc2013_opengl)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../bin)
 
