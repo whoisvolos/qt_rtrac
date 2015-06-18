@@ -19,7 +19,7 @@ void main() {
         si = vec3(pow(abs(dot(r, v)), 256.0));
     }
     // Final intensity
-    gl_FragColor = vec4(clamp(0.9 * di + 1.0 * si, 0.0, 1.0), 1.0);
+    gl_FragColor = vec4(clamp(1.0 * di, 0.0, 1.0), 1.0);
 }
 /*
 void main() {
